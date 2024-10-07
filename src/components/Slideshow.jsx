@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Slide from './Slide';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'; // Correggiamo l'importazione per Heroicons v2
 
 const slides = [
     { id: 1, content: <h1 className="text-4xl font-bold text-blue-700">Welcome to my presentation!</h1> },
@@ -39,26 +40,29 @@ function Slideshow() {
     }, [currentSlide]);
 
     return (
-        <div className="relative flex items-center justify-center h-screen bg-gray-100">
+        <div className="relative flex items-center justify-center h-screen bg-blue-200">
+            {/* Freccia sinistra */}
             {currentSlide > 0 && (
                 <button
                     onClick={prevSlide}
-                    className="absolute left-4 text-3xl text-gray-600 hover:text-gray-800 transition-transform"
+                    className="absolute left-4 h-16 w-16 bg-transparent flex items-center justify-center"
                 >
-                    &#8592;
+                    <ChevronLeftIcon className="h-8 w-8" />
                 </button>
             )}
 
-            <div className="w-full max-w-2xl p-10 bg-white rounded-lg shadow-lg">
+            {/* Slide */}
+            <div className="w-4/5 h-4/5 bg-white rounded-lg shadow-2xl flex items-center justify-center">
                 <Slide content={slides[currentSlide].content} />
             </div>
 
+            {/* Freccia destra */}
             {currentSlide < slides.length - 1 && (
                 <button
                     onClick={nextSlide}
-                    className="absolute right-4 text-3xl text-gray-600 hover:text-gray-800 transition-transform"
+                    className="absolute right-4 h-16 w-16 bg-transparent flex items-center justify-center"
                 >
-                    &#8594;
+                    <ChevronRightIcon className="h-8 w-8" />
                 </button>
             )}
         </div>
