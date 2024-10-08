@@ -1,12 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Slide from './Slide';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
-
-const slides = [
-    { id: 1, content: <h1 className="text-4xl font-bold text-white">Welcome to my presentation!</h1> },
-    { id: 2, content: <h2 className="text-3xl font-semibold text-white">React is amazing</h2> },
-    { id: 3, content: <h3 className="text-3xl font-semibold text-white">Let's create something cool!</h3> },
-];
+import slides from "../slides";
 
 export default function Slideshow() {
     const [currentSlide, setCurrentSlide] = useState(0);
