@@ -7,7 +7,7 @@ export default function Slide({ slide, length }) {
                 {slide.content}
             </div>
             <div className="flex justify-end items-end w-full p-4 mr-2">
-                <div className="text-gray-300">
+                <div className="bg-custom-black text-gray-300 p-2 rounded-full">
                     {slide.id}/{length}
                 </div>
             </div>
