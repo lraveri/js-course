@@ -71,7 +71,7 @@ export default function Slideshow() {
 
             timeoutId = setTimeout(() => {
                 setShowControls(false);
-            }, 500);
+            }, 1000);
         };
 
         window.addEventListener('mousemove', handleMouseMove);
