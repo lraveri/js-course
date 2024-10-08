@@ -35,7 +35,7 @@ export default function Slideshow() {
     }, [currentSlide]);
 
     return (
-        <div className="relative text-gray-300 flex items-center justify-center rounded-lg h-screen bg-custom-black">
+        <div className="relative text-gray-300 flex items-center justify-center h-screen bg-custom-black">
             {/* Freccia sinistra */}
             {currentSlide > 0 && (
                 <button
@@ -47,8 +47,11 @@ export default function Slideshow() {
             )}
 
             {/* Slide */}
-            <div className="w-4/5 h-4/5 bg-custom-gray rounded-lg shadow-2xl flex items-center justify-center">
-                <Slide slide={slides[currentSlide]} length={slides.length} />
+            <div
+                className="w-4/5 h-auto bg-custom-gray rounded-lg shadow-2xl flex items-center justify-center"
+                style={{aspectRatio: '16 / 9', maxWidth: '90vw', maxHeight: '90vh'}}
+            >
+                <Slide slide={slides[currentSlide]} length={slides.length}/>
             </div>
 
             {/* Freccia destra */}
