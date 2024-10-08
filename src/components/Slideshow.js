@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Slide from './Slide';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { ArrowsPointingOutIcon, XMarkIcon, ArrowsPointingInIcon } from '@heroicons/react/24/outline';
+
 import slides from "../slides";
 
 export default function Slideshow() {
@@ -20,9 +22,15 @@ export default function Slideshow() {
         }
     };
 
-    const toggleFullScreen = () => {
+    const enterFullScreen = () => {
         if (!isFullscreen) {
             document.documentElement.requestFullscreen();
+        }
+    };
+
+    const exitFullScreen = () => {
+        if (isFullscreen) {
+            document.exitFullscreen();
         }
     };
 
@@ -32,12 +40,13 @@ export default function Slideshow() {
                 nextSlide();
             } else if (event.key === 'ArrowLeft') {
                 prevSlide();
+            } else if (event.key === 'Escape') {
+                exitFullScreen();
             }
         };
 
         window.addEventListener('keydown', handleKeyDown);
 
-        // Listen to fullscreen changes
         const handleFullScreenChange = () => {
             setIsFullscreen(!!document.fullscreenElement);
         };
@@ -48,54 +57,54 @@ export default function Slideshow() {
             window.removeEventListener('keydown', handleKeyDown);
             document.removeEventListener('fullscreenchange', handleFullScreenChange);
         };
-    }, [currentSlide]);
+    }, [currentSlide, isFullscreen]);
 
-    // Handle mouse movement to show the controls
     useEffect(() => {
         let timeoutId;
 
         const handleMouseMove = () => {
             setShowControls(true);
 
-            // Cancella il timeout precedente, se esistente
             if (timeoutId) {
                 clearTimeout(timeoutId);
             }
 
-            // Imposta un nuovo timeout per nascondere i controlli
             timeoutId = setTimeout(() => {
                 setShowControls(false);
-            }, 2000); // Nasconde la barra dopo 5 secondi
+            }, 500);
         };
 
         window.addEventListener('mousemove', handleMouseMove);
 
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
-            clearTimeout(timeoutId); // Pulisci il timeout quando il componente viene smontato
+            clearTimeout(timeoutId);
         };
     }, []);
 
     return (
         <div className="relative text-gray-300 flex items-center justify-center h-screen bg-custom-black">
             {/* Barra per entrare in full screen solo se non è già in full screen */}
-            {showControls && !isFullscreen && (
-                <div className="absolute bottom-0 w-full p-4 bg-gray-900 bg-opacity-75 flex justify-center">
-                    <button
-                        onClick={toggleFullScreen}
-                        className="text-white px-4 py-2 bg-blue-500 rounded"
-                    >
-                        Enter Full Screen
+            {!isFullscreen && showControls && (
+                <div className="absolute bottom-0 w-full p-4 bg-custom-black bg-opacity-50 flex justify-end pr-8">
+                    <button onClick={enterFullScreen} className="text-white px-4 py-2 bg-transparent rounded">
+                        <ArrowsPointingOutIcon className="h-8 w-8" />
+                    </button>
+                </div>
+            )}
+
+            {/* Barra per uscire dal full screen, appare in alto solo quando siamo in full screen */}
+            {isFullscreen && showControls && (
+                <div className="absolute top-0 w-full p-4 bg-custom-black bg-opacity-50 flex justify-end pr-8">
+                    <button onClick={exitFullScreen} className="text-white px-4 py-2 bg-transparent rounded">
+                        <XMarkIcon className="h-8 w-8" />
                     </button>
                 </div>
             )}
 
             {/* Freccia sinistra */}
             {currentSlide > 0 && (
-                <button
-                    onClick={prevSlide}
-                    className="absolute left-4 text-gray-300 h-16 w-16 bg-transparent flex items-center justify-center"
-                >
+                <button onClick={prevSlide} className="absolute left-4 text-gray-300 h-16 w-16 bg-transparent flex items-center justify-center">
                     <ChevronLeftIcon className="h-8 w-8" />
                 </button>
             )}
@@ -107,10 +116,7 @@ export default function Slideshow() {
 
             {/* Freccia destra */}
             {currentSlide < slides.length - 1 && (
-                <button
-                    onClick={nextSlide}
-                    className="absolute right-4 text-gray-300 h-16 w-16 bg-transparent flex items-center justify-center"
-                >
+                <button onClick={nextSlide} className="absolute right-4 text-gray-300 h-16 w-16 bg-transparent flex items-center justify-center">
                     <ChevronRightIcon className="h-8 w-8" />
                 </button>
             )}
