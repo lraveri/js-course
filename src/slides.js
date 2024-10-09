@@ -3,6 +3,7 @@ import Slide2 from './components/slides/Slide2';
 import Slide3 from './components/slides/Slide3';
 import Slide4 from './components/slides/Slide4';
 import Slide5 from './components/slides/Slide5';
+import Slide6 from './components/slides/Slide6';
 
 const slides = [
 	{ id: 1, content: <Slide1 /> },
