@@ -9,7 +9,8 @@ const slides = [
 	{ id: 2, content: <Slide2 /> },
 	{ id: 3, content: <Slide3 /> },
 	{ id: 4, content: <Slide4 /> },
-	{ id: 5, content: <Slide5 /> }
+	{ id: 5, content: <Slide5 /> },
+	{ id: 6, content: <Slide6 /> }
 ];
 
 export default slides;
