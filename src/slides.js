@@ -4,6 +4,7 @@ import Slide3 from './components/slides/Slide3';
 import Slide4 from './components/slides/Slide4';
 import Slide5 from './components/slides/Slide5';
 import Slide6 from './components/slides/Slide6';
+import Slide7 from './components/slides/Slide7';
 
 const slides = [
 	{ id: 1, content: <Slide1 /> },
@@ -11,7 +12,8 @@ const slides = [
 	{ id: 3, content: <Slide3 /> },
 	{ id: 4, content: <Slide4 /> },
 	{ id: 5, content: <Slide5 /> },
-	{ id: 6, content: <Slide6 /> }
+	{ id: 6, content: <Slide6 /> },
+	{ id: 6, content: <Slide7 /> }
 ];
 
 export default slides;
